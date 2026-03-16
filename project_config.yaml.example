@@ -1,0 +1,73 @@
+# BDD Project Config — copy to project_config.yaml and tailor for your project
+# Used by: reverse-engineering-business-logic, validate-business-logic-against-code,
+#          derive-acceptance-criteria, generate-tests-from-business-logic, etc.
+
+bl_output:
+  root: "business_logic"
+  subdirs:
+    current: "current"
+    proposal: "proposal"
+    under_development: "under_development"
+    historical: "historical"
+  categories:
+    - endpoints
+    - models
+    - workflows
+    - billing
+  index_file: "index.md"
+  glossary_file: "glossary.md"
+  discovery_file: "DISCOVERY.md"
+
+terminology:
+  terms:
+    - term: "request"
+      definition: "A single user-initiated operation (replace with your domain term)"
+    - term: "account"
+      definition: "Customer or tenant (replace with your domain)"
+    - term: "balance"
+      definition: "Prepaid balance or credits (replace if not applicable)"
+
+entry_points:
+  framework: "Django"   # or FastAPI, Flask, Express, etc.
+  endpoints:
+    description: "API views, handlers, routes"
+    path_patterns:
+      - "backend/**/api/views.py"
+      - "backend/**/views/*.py"
+    grep_patterns:
+      - "class.*ViewSet"
+      - "@api_view"
+    bl_category: "endpoints"
+  models:
+    description: "Domain models, entities"
+    path_patterns:
+      - "backend/**/models.py"
+      - "backend/**/models/*.py"
+    grep_patterns:
+      - "class.*Model"
+    bl_category: "models"
+  workflows:
+    description: "Background tasks, schedulers"
+    path_patterns:
+      - "backend/**/tasks.py"
+      - "backend/**/management/commands/*.py"
+    grep_patterns:
+      - "@shared_task"
+      - "class Command"
+    bl_category: "workflows"
+  billing:
+    description: "Charges, refunds, credits"
+    path_patterns:
+      - "backend/**/services/*credit*.py"
+      - "backend/**/billing*.py"
+    grep_patterns:
+      - "charge"
+      - "refund"
+    bl_category: "billing"
+
+validation:
+  code_roots:
+    - "backend/"
+  validation_locations: []
+  billing_locations: []
+  state_transition_locations: []

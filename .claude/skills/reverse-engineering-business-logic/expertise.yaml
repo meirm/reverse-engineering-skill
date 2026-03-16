@@ -1,0 +1,146 @@
+# Business Logic Reverse Engineering — Generic Expertise Template
+# Tailor for your project via BDD/project_config.yaml (see tailor-bdd-skills-for-project skill)
+
+overview:
+  description: "Reverse engineers business logic from source code by extracting operational business truth. Distinguishes between code structure (technical implementation) and business structure (domain logic, rules, workflows). Outputs structured documentation to the project's BL output directory (see project config)."
+  output_directory: "Set in BDD/project_config.yaml → bl_output.root (default: business_logic/)"
+  output_format: "Markdown using structured 11-section template"
+  core_principle: "Never confuse code structure with business structure"
+
+analysis_modes:
+  Endpoint_to_BL:
+    trigger: "API views, handlers, endpoints, routes"
+    focus: "Request/response flows, validation, routing, charging, responses"
+    entry_points: "Views, controllers, API handlers, route handlers"
+    output_subdir: "[bl_root]/endpoints/"
+
+  Model_to_BL:
+    trigger: "Domain models, entities, schemas, database tables"
+    focus: "Lifecycle rules, state transitions, invariants, side effects, validation"
+    entry_points: "ORM models, Pydantic schemas, entity classes"
+    output_subdir: "[bl_root]/models/"
+
+  Workflow_to_BL:
+    trigger: "Multi-step features spanning multiple files"
+    focus: "Orchestration, retries, fallbacks, background tasks, state machines"
+    entry_points: "Background jobs, scheduled tasks, queue workers, CLI commands"
+    output_subdir: "[bl_root]/workflows/"
+
+  Billing_to_BL:
+    trigger: "Charges, refunds, credits, payments, quota"
+    focus: "When charges occur, refunds, adjustments, partial charges, race conditions"
+    entry_points: "Payment handlers, credit services, ledger operations"
+    output_subdir: "[bl_root]/billing/"
+
+output_structure:
+  sections:
+    - "1. Business Purpose - What capability this code provides"
+    - "2. Actors - Who uses or triggers it"
+    - "3. Preconditions - What must be true before it runs"
+    - "4. Main Flow - Step-by-step business flow (NOT code structure)"
+    - "5. Decision Rules - Explicit if/then rules in business language"
+    - "6. State Transitions - How statuses change (with Mermaid diagrams)"
+    - "7. Billing/Credit Impact - When charges/refunds occur (or N/A)"
+    - "8. Exceptions/Edge Cases - Invalid input, unsupported paths, fallback behavior"
+    - "9. Data Written/Read - Key business-relevant persistence effects"
+    - "10. Ambiguities/Questions - What cannot be safely inferred"
+    - "11. Code References - Specific files and line numbers for traceability"
+
+file_naming_conventions:
+  pattern: "lowercase-with-hyphens.md"
+  examples:
+    - "order-creation.md"
+    - "payment-charging.md"
+    - "subscription-lifecycle.md"
+  rule: "Use descriptive names that reflect business capability, not code file names"
+
+directory_structure:
+  root: "From project config bl_output.root"
+  organization: "State-based (current, proposal, under_development, historical)"
+  states:
+    current:
+      description: "Production business logic (currently deployed)"
+      subdirectories:
+        endpoints: "API endpoint business logic"
+        models: "Domain entity lifecycle rules"
+        workflows: "Multi-step business processes"
+        billing: "Charging and payment logic"
+    proposal:
+      description: "Proposed changes (not yet implemented)"
+    under_development:
+      description: "Work in progress (partially implemented)"
+    historical:
+      description: "Old/outdated business logic"
+
+domain_language:
+  purpose: "Replace technical terms with business terms; use project config terminology when present"
+  generic_examples:
+    - business: "order / request / operation"
+      technical: "API call, record creation"
+    - business: "job / task"
+      technical: "background job, async task"
+    - business: "account / tenant / customer"
+      technical: "organization record, user entity"
+    - business: "balance / credits"
+      technical: "quota balance, ledger total"
+  note: "Project-specific terms go in BDD/project_config.yaml → terminology.terms"
+
+business_vs_technical_mapping:
+  concept: "Technical vs Business language translation"
+  examples:
+    - technical: "calls function X"
+      business: "attempts provider A, then provider B if A fails"
+    - technical: "updates status field"
+      business: "marks record as completed"
+    - technical: "throws ValidationError"
+      business: "rejects invalid input with clear reason"
+    - technical: "check balance >= cost"
+      business: "verifies sufficient balance before operation"
+
+red_flags_to_investigate:
+  silent_failures: "Empty except blocks (swallows exceptions without logging)"
+  todo_business_logic: "TODO comments with business implications"
+  dead_code_logic: "Commented-out code with 'removed' logic"
+  ambiguous_returns: "Multiple return paths with different semantics"
+  state_mismatch: "State checks that don't match enum/constant definitions"
+  billing_audit_trail: "Billing/charging logic without clear audit trail"
+  fallback_semantics: "Fallback paths with different semantics (not transparent)"
+  partial_success: "Partial success states (some items succeed, others fail)"
+
+entry_points:
+  note: "Paths and patterns are project-specific. Use BDD/project_config.yaml → entry_points (path_patterns, grep_patterns) for this project. Below are generic patterns only."
+  endpoints:
+    discovery: "Search path_patterns for grep_patterns (e.g. class.*ViewSet, @router, @app.post)"
+    output_directory: "[bl_root]/endpoints/"
+  models:
+    discovery: "Search for model/schema/entity class definitions"
+    output_directory: "[bl_root]/models/"
+  workflows:
+    discovery: "Search for task decorators, Command classes, job handlers"
+    output_directory: "[bl_root]/workflows/"
+  billing:
+    discovery: "Search for charge, refund, credit, payment, quota"
+    output_directory: "[bl_root]/billing/"
+
+priority_guidance:
+  tier_1_critical:
+    description: "Document immediately - high business impact"
+    criteria:
+      - "User-facing API endpoints (auth, core CRUD, payments)"
+      - "Billing/charging operations"
+      - "Core domain models"
+      - "External integrations (webhooks, callbacks)"
+  tier_2_important:
+    description: "Document soon - moderate business impact"
+    criteria:
+      - "Background workflows and scheduled tasks"
+      - "Admin/management operations"
+      - "Notifications and alerts"
+      - "Data export/import"
+  tier_3_nice_to_have:
+    description: "Document when time - lower impact"
+    criteria:
+      - "Utility endpoints and helpers"
+      - "Read-only and reporting"
+      - "Internal/debug features"
+      - "Legacy or deprecated paths"
