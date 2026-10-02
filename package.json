@@ -11,6 +11,7 @@
     "reverse-engineering",
     "acceptance-criteria"
   ],
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/meirm/reverse-engineering-skill.git"
