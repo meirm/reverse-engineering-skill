@@ -1,10 +1,7 @@
 ---
 name: reverse-engineering-business-logic
 description: Reverse engineers business logic from source code by extracting operational business truth. Use when user asks to understand what the system actually does, analyze business rules, extract domain logic, infer workflows from code, explain state transitions, or identify decision logic. Works with API views (Django, FastAPI, etc.), domain models, background tasks, and multi-step workflows.
-allowed-tools:
-  - Read
-  - Grep
-  - Glob
+allowed-tools: read, grep, find
 ---
 
 # Reverse Engineer Business Logic from Code

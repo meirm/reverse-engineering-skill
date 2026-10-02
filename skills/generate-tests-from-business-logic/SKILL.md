@@ -1,7 +1,7 @@
 ---
-name: generating-tests-from-business-logic
+name: generate-tests-from-business-logic
 description: Generates scenario tests, rule tests, edge case tests, state transition tests, and billing tests from trusted business logic. Use when creating test suites from BL, ensuring BL coverage, or turning requirements into verifiable tests.
-allowed-tools: Read, Grep, Glob, Write, Edit, Bash
+allowed-tools: read, grep, find, write, edit, bash
 ---
 
 # Generating Tests from Business Logic
@@ -14,7 +14,7 @@ Transform trusted business logic into a comprehensive test suite that continuous
 
 ## Prerequisites
 
-- Refined business logic document (use `refining-business-logic-for-implementation` first)
+- Refined business logic document (use `refine-business-logic-for-implementation` first)
 - Understanding of the project's testing framework (pytest, behave, etc.)
 - Knowledge of the project structure
 

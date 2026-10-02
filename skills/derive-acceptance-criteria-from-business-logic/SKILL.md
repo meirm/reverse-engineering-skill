@@ -1,5 +1,5 @@
 ---
-name: deriving-acceptance-criteria-from-business-logic
+name: derive-acceptance-criteria-from-business-logic
 description: Converts trusted business logic into product-owner-grade acceptance criteria and developer-ready tasks using Given/When/Then scenarios. Use when creating user stories, preparing for sprints, or turning BL into executable requirements.
 ---
 
@@ -13,7 +13,7 @@ Transform trusted business logic into clear, testable acceptance criteria that c
 
 ## Prerequisites
 
-- Refined business logic document (use `refining-business-logic-for-implementation` first)
+- Refined business logic document (use `refine-business-logic-for-implementation` first)
 - Understanding of the target audience (product owners, developers, QA)
 - Access to project templates or standards for acceptance criteria
 

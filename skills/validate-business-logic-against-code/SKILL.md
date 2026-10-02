@@ -1,7 +1,7 @@
 ---
-name: validating-business-logic-against-code
+name: validate-business-logic-against-code
 description: Verifies whether documented business logic is actually implemented by mapping BL rules to code evidence. Flags rules as implemented, partially implemented, contradicted, or not found. Use when validating business logic documents, checking code coverage against requirements, or verifying BL-to-code alignment.
-allowed-tools: Read, Grep, Glob
+allowed-tools: read, grep, find
 ---
 
 # Validating Business Logic Against Code

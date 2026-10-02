@@ -1,13 +1,13 @@
 # BDD Commands Quick Reference
 
-This guide shows how to use the BDD commands and orchestrator to extract, validate, and refine business logic from code.
+This guide shows how to use the BDD prompt commands and orchestrator skill (installed as a [pi](https://github.com/earendil-works/pi-coding-agent) package) to extract, validate, and refine business logic from code.
 
 ## Prerequisites
 
 Before using any BDD commands, configure your project:
 
 ```bash
-/tailor-bdd-skills-for-project
+/skill:tailor-bdd-skills-for-project
 ```
 
 This creates `BDD/project_config.yaml` with:
@@ -132,9 +132,15 @@ Generate tests from business logic documentation.
 
 ---
 
-## Orchestrator Agent
+## Orchestrator Skill
 
-For comprehensive analysis, use the BDD orchestrator agent:
+For comprehensive analysis, use the bdd-orchestrator skill:
+
+```bash
+/skill:bdd-orchestrator order creation
+```
+
+Or just ask naturally:
 
 ```
 "Understand order creation from code and prepare it for implementation"
@@ -205,7 +211,7 @@ business_logic/
 
 ## Tips
 
-1. **Start with `/tailor-bdd-skills-for-project`** - Configure once per project
+1. **Start with `/skill:tailor-bdd-skills-for-project`** - Configure once per project
 2. **Use `/reverse-bl` first** - Extract BL from code before other operations
 3. **Validate early** - Catch issues with `/validate-bl` before refinement
 4. **Iterate on gaps** - Use `/gap-analysis` and `/refine-bl` together
@@ -216,5 +222,5 @@ business_logic/
 ## Getting Help
 
 - **Full documentation:** See `README.md`
-- **Skill details:** See `.claude/skills/*/SKILL.md`
-- **Examples:** See `.claude/skills/reverse-engineering-business-logic/examples/`
+- **Skill details:** See `skills/*/SKILL.md`
+- **Examples:** See `skills/reverse-engineering-business-logic/examples/`

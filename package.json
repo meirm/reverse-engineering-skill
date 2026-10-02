@@ -1,0 +1,24 @@
+{
+  "name": "reverse-engineering-skill",
+  "version": "1.0.0",
+  "description": "BDD/business-logic skills for the pi coding agent: reverse-engineer business logic from code into structured documentation, validate it against the implementation, analyze gaps, refine it into deterministic rules, derive acceptance criteria, and generate tests. Includes an orchestrator skill for full end-to-end workflows.",
+  "keywords": [
+    "pi-package",
+    "pi",
+    "skills",
+    "bdd",
+    "business-logic",
+    "reverse-engineering",
+    "acceptance-criteria"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/meirm/reverse-engineering-skill.git"
+  },
+  "files": [
+    "skills/",
+    "prompts/",
+    "README.md",
+    "QUICK_START.md"
+  ]
+}

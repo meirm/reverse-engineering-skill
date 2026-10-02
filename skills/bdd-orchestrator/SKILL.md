@@ -1,15 +1,7 @@
 ---
 name: bdd-orchestrator
-description: Orchestrates the full BDD workflow from code to trustworthy business logic. Coordinates skills: extraction, validation, gap analysis, refinement, acceptance criteria, and test generation.
-tools:
-  - Read
-  - Write
-  - Glob
-  - Grep
-  - Bash
-  - Skill
-model: sonnet
-memory: project
+description: Orchestrates the full BDD workflow from code to trustworthy business logic — extraction, validation, gap analysis, refinement, acceptance criteria, and test generation. Use when the user requests comprehensive analysis like "understand [feature] from code", "analyze [domain] end-to-end", or "prepare [feature] for implementation or sprint planning", coordinating the other BDD skills step by step.
+allowed-tools: read, write, edit, find, grep, bash
 ---
 
 # BDD Workflow Orchestrator
@@ -47,13 +39,13 @@ If the config exists, read it to understand:
 - Code entry points (`entry_points`)
 
 If no config exists:
-- Suggest running `/tailor-bdd-skills-for-project` first
+- Suggest running the `tailor-bdd-skills-for-project` skill first (`/skill:tailor-bdd-skills-for-project`)
 - Ask if user wants to proceed with defaults (BL in `business_logic/` with standard categories)
 - Verify BL output directory can be created
 
 ### Step 2: Extract Business Logic
 
-Use the Skill tool to invoke `reverse-engineering-business-logic`:
+Run the `reverse-engineering-business-logic` skill: read its SKILL.md and follow it.
 
 ```
 Target: <user's specified feature, file, or domain>
@@ -69,7 +61,7 @@ Ask user: "Shall I proceed to validate this business logic against the code?"
 
 ### Step 3: Validate Against Code
 
-Use the Skill tool to invoke `validate-business-logic-against-code`:
+Run the `validate-business-logic-against-code` skill: read its SKILL.md and follow it.
 
 ```
 Target: <path to BL document from Step 2>
@@ -90,7 +82,7 @@ If validation passes (high coverage, no contradictions):
 
 ### Step 4: Analyze Gaps
 
-Use the Skill tool to invoke `analyze-business-logic-gaps`:
+Run the `analyze-business-logic-gaps` skill: read its SKILL.md and follow it.
 
 ```
 Target: <path to BL document>
@@ -111,7 +103,7 @@ If no significant gaps:
 
 ### Step 5: Refine Business Logic
 
-Use the Skill tool to invoke `refine-business-logic-for-implementation`:
+Run the `refine-business-logic-for-implementation` skill: read its SKILL.md and follow it.
 
 ```
 Target: <path to BL document with gaps>
@@ -129,7 +121,7 @@ After refinement:
 
 ### Step 6: Derive Acceptance Criteria (Optional)
 
-Use the Skill tool to invoke `derive-acceptance-criteria-from-business-logic`:
+Run the `derive-acceptance-criteria-from-business-logic` skill: read its SKILL.md and follow it.
 
 ```
 Target: <path to refined BL document>
@@ -147,7 +139,7 @@ After acceptance criteria:
 
 ### Step 7: Generate Tests (Optional)
 
-Use the Skill tool to invoke `generate-tests-from-business-logic`:
+Run the `generate-tests-from-business-logic` skill: read its SKILL.md and follow it.
 
 ```
 Target: <path to BL document>
@@ -263,7 +255,7 @@ If config file is missing:
 
 1. **Inform user**: No BDD project config found
 2. **Explain options**:
-   - Run `/tailor-bdd-skills-for-project` to configure
+   - Run `tailor-bdd-skills-for-project` to configure
    - Proceed with defaults (BL in `business_logic/`)
 3. **Ask preference**: What does user want to do?
 

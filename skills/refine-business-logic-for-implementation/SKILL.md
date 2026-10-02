@@ -1,5 +1,5 @@
 ---
-name: refining-business-logic-for-implementation
+name: refine-business-logic-for-implementation
 description: Rewrites vague business logic into deterministic, testable rules by separating policy from mechanism, normalizing terminology, and defining explicit state machines. Use when preparing BL for code implementation, making BL executable, or normalizing ambiguous requirements.
 ---
 
@@ -15,7 +15,7 @@ Transform descriptive business logic into deterministic, testable, implementable
 
 - A business logic document to refine
 - Understanding of the target implementation domain
-- Access to the `analyzing-business-logic-gaps` skill (to identify issues first)
+- Access to the `analyze-business-logic-gaps` skill (to identify issues first)
 
 ## Instructions
 

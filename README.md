@@ -1,14 +1,31 @@
-# BDD Skills (Universal)
+# BDD Skills for pi (Universal)
 
-This directory contains **project-agnostic** BDD (behavior-driven development) and business-logic skills that can be used in any codebase.
+This is a [pi](https://github.com/earendil-works/pi-coding-agent) package containing **project-agnostic** BDD (behavior-driven development) and business-logic skills that can be used in any codebase.
 
 > **📖 New?** See [QUICK_START.md](QUICK_START.md) for a concise command reference.
+
+## Installation
+
+```bash
+# From git
+pi install git:github.com/meirm/reverse-engineering-skill
+
+# From a local checkout
+pi install ./reverse-engineering-skill
+
+# Try it once without installing
+pi -e git:github.com/meirm/reverse-engineering-skill
+```
+
+Add `--local` to install into the current project (`.pi/settings.json`) instead of your personal config.
+
+After installation, the skills are advertised to pi automatically (name + description); their full instructions load only when a task matches. Prompt templates appear as `/` commands.
 
 ## Quick Start
 
 Choose your workflow:
 
-**For beginners** - Use commands (shortcuts):
+**For beginners** - Use prompt commands (shortcuts):
 ```bash
 /reverse-bl <feature>              # Extract business logic from code
 /validate-bl <document>             # Validate BL against code
@@ -18,36 +35,36 @@ Choose your workflow:
 /generate-tests <document>          # Generate tests from BL
 ```
 
-**For comprehensive analysis** - Use the orchestrator agent:
+**For comprehensive analysis** - Use the orchestrator skill:
 ```bash
-# Ask: "Understand order creation from code and prepare it for implementation"
-# The bdd-orchestrator will coordinate all skills automatically
+/skill:bdd-orchestrator order creation
+# Or just ask: "Understand order creation from code and prepare it for implementation"
+# The bdd-orchestrator skill coordinates all skills automatically
 ```
 
 **For advanced users** - Use skills directly:
 ```bash
-# Invoke any skill by name
-# Example: "Use reverse-engineering-business-logic on order creation"
+/skill:reverse-engineering-business-logic payment processing
+/skill:analyze-business-logic-gaps business_logic/current/workflows/payment-flow.md
 ```
 
 ## Tailoring for your project
 
 Before using the skills in a new project, run:
 
-- **Command:** `/tailor-bdd-skills-for-project`
-- **Or:** Use the skill directly
+```bash
+/skill:tailor-bdd-skills-for-project
+```
 
-That will guide you to create or edit **`BDD/project_config.yaml`** (or `.cursor/bdd_project_config.yaml` at repo root) with:
+That will guide you to create or edit **`BDD/project_config.yaml`** with:
 
 1. **`bl_output`** — Where to store business logic docs (e.g. `business_logic/`), and categories (endpoints, models, workflows, billing).
 2. **`terminology`** — Domain terms and definitions so all BL docs and scenarios use consistent language.
 3. **`entry_points`** — Where to find API endpoints, models, workflows, and billing logic in your code (paths and grep patterns).
 
-Once the config exists, the other skills/commands use it for paths and terminology.
+Once the config exists, the other skills use it for paths and terminology.
 
-**Template:** Copy `project_config.yaml.example` to `project_config.yaml` and fill in your project’s paths and terms.
-
-## Commands (Shortcuts)
+## Prompt Commands (Shortcuts)
 
 Convenient shortcuts for common BDD workflows:
 
@@ -60,16 +77,16 @@ Convenient shortcuts for common BDD workflows:
 | `/derive-acceptance` | Create acceptance criteria | `/derive-acceptance order workflow` |
 | `/generate-tests` | Generate tests from BL | `/generate-tests password reset` |
 
-## Agents (Orchestrators)
+Each command loads the corresponding skill (below) and applies it to your arguments.
 
-### BDD Orchestrator
+## The BDD Orchestrator
 
-The **`bdd-orchestrator`** agent coordinates the full BDD workflow automatically:
+The **`bdd-orchestrator`** skill coordinates the full BDD workflow automatically:
 
 ```
 User: "Understand order creation from code and prepare it for implementation"
 
-Agent automatically:
+The orchestrator:
 1. Extracts business logic → order-creation.md
 2. Validates against code → coverage report
 3. Analyzes gaps → issues found
@@ -88,7 +105,7 @@ The orchestrator:
 
 ## Skills (Underlying Capabilities)
 
-All commands and agents use these underlying skills:
+All prompt commands and the orchestrator use these underlying skills:
 
 | Skill | Purpose |
 |-------|--------|
@@ -99,6 +116,9 @@ All commands and agents use these underlying skills:
 | **refine-business-logic-for-implementation** | Rewrite vague BL into deterministic, testable rules and state machines. |
 | **derive-acceptance-criteria-from-business-logic** | Turn BL into Given/When/Then scenarios and acceptance criteria. |
 | **generate-tests-from-business-logic** | Generate rule, scenario, state-transition, and billing tests from BL. |
+| **bdd-orchestrator** | Coordinate the full workflow: extract → validate → gaps → refine → acceptance → tests. |
+
+Skills can be forced with `/skill:<name> [args]` or invoked implicitly when a task matches their description.
 
 ## Conventions
 
@@ -145,12 +165,12 @@ All commands and agents use these underlying skills:
 /generate-tests user registration
 ```
 
-### Example 3: Using the Orchestrator Agent
+### Example 3: Using the Orchestrator
 
 ```
 User: "Understand order fulfillment from code and prepare it for sprint planning"
 
-The bdd-orchestrator will:
+The bdd-orchestrator skill will:
 ✓ Check project configuration
 ✓ Extract business logic
 ✓ Validate against code
@@ -217,59 +237,48 @@ Goal: Verify BL quality and completeness
 /refine-bl <document>
 ```
 
-## Command vs Agent vs Skill
+## Prompt Command vs Skill
 
-### Commands (`/command`)
+### Prompt commands (`/reverse-bl`, …)
 - **Best for:** Single-step operations
 - **Usage:** Quick, direct actions
 - **Example:** `/reverse-bl order creation`
 - **Pros:** Fast, simple, explicit
 - **Cons:** Manual coordination for multi-step workflows
 
-### Agents (orchestrator)
-- **Best for:** Multi-step, comprehensive analysis
-- **Usage:** Natural language requests
-- **Example:** "Understand order creation from code and prepare it for implementation"
-- **Pros:** Automatic coordination, smart decisions, interactive
-- **Cons:** More interactive, less explicit control
-
-### Skills (direct invocation)
-- **Best for:** Advanced users, custom workflows
-- **Usage:** "Use <skill-name> on <target>"
-- **Example:** "Use reverse-engineering-business-logic on payment processing"
-- **Pros:** Full control, composable
+### Skills (`/skill:<name>` or automatic)
+- **Best for:** Advanced users, custom workflows, multi-step orchestration
+- **Usage:** "Use reverse-engineering-business-logic on payment processing" or `/skill:reverse-engineering-business-logic payment processing`
+- **Pros:** Full control, composable; load automatically when a task matches
 - **Cons:** Verbose, requires knowledge of skill names
-
-## Methodology
-
-See **BBD_logic.md** for the overall approach: reverse-engineering business logic from code, then using that BL to drive acceptance criteria, implementation, and tests.
 
 ## File Structure
 
 ```
-.claude/
-├── commands/              # User-facing shortcuts
+.
+├── package.json            # pi package manifest (pi-package keyword)
+├── prompts/                # Prompt template commands
 │   ├── reverse-bl.md
 │   ├── validate-bl.md
 │   ├── gap-analysis.md
 │   ├── refine-bl.md
 │   ├── derive-acceptance.md
 │   └── generate-tests.md
-├── agents/                # Workflow orchestrators
-│   └── bdd-orchestrator.md
-└── skills/                # Underlying capabilities
+└── skills/                 # Underlying capabilities
+    ├── tailor-bdd-skills-for-project/
     ├── reverse-engineering-business-logic/
+    │   ├── references/     # Deep-dive docs
+    │   └── examples/       # Worked examples
     ├── validate-business-logic-against-code/
     ├── analyze-business-logic-gaps/
     ├── refine-business-logic-for-implementation/
     ├── derive-acceptance-criteria-from-business-logic/
     ├── generate-tests-from-business-logic/
-    └── tailor-bdd-skills-for-project/
+    └── bdd-orchestrator/   # Full-workflow orchestrator
 ```
 
 ## Documentation
 
-- **Commands:** `.claude/commands/*.md` - Quick reference for each command
-- **Agents:** `.claude/agents/*.md` - Orchestrator workflows and behavior
-- **Skills:** `.claude/skills/*/SKILL.md` - Detailed skill documentation
-- **Examples:** `.claude/skills/reverse-engineering-business-logic/examples/` - Worked examples
+- **Prompt commands:** `prompts/*.md` - Quick reference for each command
+- **Skills:** `skills/*/SKILL.md` - Detailed skill documentation
+- **Examples:** `skills/reverse-engineering-business-logic/examples/` - Worked examples

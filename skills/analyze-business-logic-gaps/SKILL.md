@@ -1,5 +1,5 @@
 ---
-name: analyzing-business-logic-gaps
+name: analyze-business-logic-gaps
 description: Identifies missing, vague, underspecified, or contradictory business logic within BL documents. Finds incomplete edge cases, missing state transitions, ambiguous terminology, and weak billing rules. Use when reviewing business logic quality, hardening requirements, or preparing BL for implementation.
 ---
 

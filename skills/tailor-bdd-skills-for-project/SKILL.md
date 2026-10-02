@@ -1,11 +1,7 @@
 ---
 name: tailor-bdd-skills-for-project
 description: Tailors the universal BDD skills in this directory to a specific project. Use when adopting BDD skills in a new repo, defining where BL docs live, which terminology to use, and how to find entry points (views, models, tasks). Creates or updates project BDD config so other skills (reverse-engineering, validate, derive-acceptance-criteria, etc.) work correctly.
-allowed-tools:
-  - Read
-  - Write
-  - Glob
-  - Grep
+allowed-tools: read, write, find, grep
 ---
 
 # Tailor BDD Skills for a Specific Project
