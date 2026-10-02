@@ -282,3 +282,7 @@ Goal: Verify BL quality and completeness
 - **Prompt commands:** `prompts/*.md` - Quick reference for each command
 - **Skills:** `skills/*/SKILL.md` - Detailed skill documentation
 - **Examples:** `skills/reverse-engineering-business-logic/examples/` - Worked examples
+
+## License
+
+[MIT](LICENSE)
